@@ -4,9 +4,10 @@ Simplified environments to cleanly build the avr-gcc toolchain from source.
 
 ## Table of Contents
 - [avr-gcc-env](#avr-gcc-env)
-	- [Table of Contents](#table-of-contents)
-	- [Build the image](#build-the-image)
-	- [Build the toolchain](#build-the-toolchain)
+  - [Table of Contents](#table-of-contents)
+  - [Build the image](#build-the-image)
+  - [Build the toolchain](#build-the-toolchain)
+  - [List the available tools versions](#list-the-available-tools-versions)
 
 
 ## Build the image
@@ -23,11 +24,33 @@ docker build \
 	--build-arg BINUTILS_VERSION=2.38 \
 	--build-arg GCC_VERSION=11.3.0    \
 	--build-arg LIBC_VERSION=2.1.0    \ 
-	-t avr-gcc-env:<your-tag>.
+	-t avr-gcc-env:<your-tag> .
 ```
 
 ## Build the toolchain
 
 ```bash
 docker run --rm -v $(pwd)/avr-env:/local/avr avr-gcc-env:<your-tag> 
+```
+
+## List the available tools versions
+
+You can get a list of the available version of gcc/binutils/libc to install 
+through the docker container, by using the `list-versions.py` script:
+
+```bash
+python list-versions.py gcc
+python list-versions.py binutils
+python list-versions.py libc
+```
+
+Usage:
+
+```
+Lists the available version for the packages in the GNU packages.
+Usage: ./list-versions.py PACKAGE
+  -h, --help
+      shows this help message
+  PACKAGE
+      gcc, binutils, libc
 ```
